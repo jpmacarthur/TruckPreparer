@@ -105,7 +105,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>TruckLogo.ico</ApplicationIcon>
@@ -118,10 +118,15 @@
       <HintPath>..\packages\ExcelDataReader.DataSet.3.1.0\lib\net45\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\..\..\LCP\Lib\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Dev\Lib\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\..\Dev\Lib\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -135,6 +140,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WpfAnimatedGif, Version=1.4.14.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WpfAnimatedGif.1.4.14\lib\net\WpfAnimatedGif.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -143,9 +149,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CheckedProperty.cs" />
+    <Compile Include="LTSItem.cs" />
+    <Compile Include="LTSViewer.xaml.cs">
+      <DependentUpon>LTSViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Quantity.cs" />
+    <Compile Include="SpecialArea\AddArea.xaml.cs">
+      <DependentUpon>AddArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SpecialArea\AddAreaEventArgs.cs" />
+    <Compile Include="SpecialArea\AddAreaProperties.cs" />
+    <Compile Include="SpecialArea\AreasJSON.cs" />
+    <Compile Include="SpecialArea\SpecialViewer.xaml.cs">
+      <DependentUpon>SpecialViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TruckItem.cs" />
     <Compile Include="TruckParser.cs" />
+    <Page Include="LTSViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -158,6 +181,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SpecialArea\AddArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SpecialArea\SpecialViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -229,10 +260,13 @@
     <Resource Include="TruckLogo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Common\Common.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\Dev\Projects\Common\Common\Common.csproj">
       <Project>{93b99f2a-4455-4bb1-ac03-19d262225964}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\backgrouund.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

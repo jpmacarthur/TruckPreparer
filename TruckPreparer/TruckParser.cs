@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using ExcelDataReader;
+using LCP.Common.Json;
 
 namespace TruckPreparer
 {
@@ -149,7 +150,7 @@ namespace TruckPreparer
             List<TruckItem> items = new List<TruckItem>();
 
             int num = data.Rows.Count;
-            for (int i = 1; i < num - 1; i++)
+            for (int i = 1; i <= num - 1; i++)
             {
                 TruckItem item = new TruckItem();
                 Quantity quan = new Quantity();
