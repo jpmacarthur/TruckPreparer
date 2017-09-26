@@ -8,16 +8,24 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel>
-            <DockPanel>
-                <Label Content="Area Name"></Label>
+            <DockPanel Margin="0,0,3,5">
+                <Label Content="Area Name" Width="105"></Label>
                 <TextBox HorizontalAlignment="Stretch" Width="Auto" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=Explicit}" KeyUp="TextBox_KeyUp" Name="Area_TB"></TextBox>
             </DockPanel>
-            <DockPanel LastChildFill="True">
-                <Label Content="SIP File (Optional)" DockPanel.Dock="Left"></Label>
+            <DockPanel LastChildFill="True" Margin="0,0,3,5">
+                <Label Content="SIP File (Optional)" DockPanel.Dock="Left" Width="105"></Label>
                 <Button Width="Auto" DockPanel.Dock="Right" Content="Pick File" Click="Button_Click_1"></Button>
                 <TextBox HorizontalAlignment="Stretch" Width="Auto" Text="{Binding Filelocation, Mode=TwoWay}"></TextBox>
             </DockPanel>
-            <Button Content="Submit" Width="Auto" Click="Button_Click"> </Button>
+            <DockPanel LastChildFill="True" Margin="0,0,3,5">
+                <Label Content="Start Date" DockPanel.Dock="Left" Width="105"></Label>
+                <DatePicker Name="StartDateTime" SelectedDate="{Binding StartDateTime}"></DatePicker>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="0,0,3,0">
+                <Label Content="End Date" DockPanel.Dock="Left" Width="105"></Label>
+                <DatePicker Name="EndDateTime" SelectedDate="{Binding EndDateTime}"></DatePicker>
+            </DockPanel>
+            <Button Content="Submit" Width="Auto" Click="Button_Click" Margin="0,5,0,0"> </Button>
         </StackPanel>
     </Grid>
 </UserControl>

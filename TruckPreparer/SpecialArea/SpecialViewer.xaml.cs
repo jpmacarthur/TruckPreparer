@@ -47,7 +47,27 @@ namespace TruckPreparer.SpecialArea
         public void Reload(AreasList source)
         {
             this.source = source;
-            foreach(AreasJSON item in source.Areas)
+            if(source.Areas == null)
+            {
+                source.Areas = new List<AreasJSON>();
+                foreach(AreasJSON item in source.Areas.ToList())
+                {
+                    item.Items.Items = new List<LTSItem>();
+                }
+            }
+            foreach (AreasJSON item in source.Areas.ToList())
+            {
+                if(DateTime.Now > item.Until && item.CheckedAlready == false)
+                {
+                    MessageBoxResult mbr = MessageBox.Show(item.Name + " has ended. Would you like to remove this grouping?", "Confirmation" ,MessageBoxButton.YesNo);
+                    if(mbr == MessageBoxResult.Yes)
+                    {
+                        source.Areas.Remove(item);
+                    }
+                    else { item.CheckedAlready = true; }
+                }
+            }
+            foreach (AreasJSON item in source.Areas)
             {
                 ObservableSource.Add(item);
             }
@@ -59,6 +79,7 @@ namespace TruckPreparer.SpecialArea
             Window temp = new Window();
             AddArea add = new AddArea();
             temp.Content = add;
+            temp.Title = "Area";
             temp.Show();
             
             add.AddItem += Add_AddItem;
@@ -67,8 +88,8 @@ namespace TruckPreparer.SpecialArea
         private void Add_AddItem(object sender, AddAreaEventArgs args)
         {
             ((sender as AddArea).Parent as Window).Close();
-            ObservableSource.Add(new AreasJSON { Name = args.Name, Items = new LTS { Items = LTSViewer.ParseToHighlyRated(args.Filelocation) } });
-            source.Areas.Add(new AreasJSON { Name = args.Name, Items = new LTS { Items = LTSViewer.ParseToHighlyRated(args.Filelocation) } });
+            ObservableSource.Add(new AreasJSON { Name = args.Name, Items = new LTS { Items = LTSViewer.ParseToHighlyRated(args.Filelocation) },Start = args.Start, Until = args.End, CheckedAlready = false });
+            source.Areas.Add(new AreasJSON { Name = args.Name, Items = new LTS { Items = LTSViewer.ParseToHighlyRated(args.Filelocation) }, Start = args.Start, Until = args.End, CheckedAlready = false });
         }
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
@@ -79,6 +100,14 @@ namespace TruckPreparer.SpecialArea
             ltsv.Reload(its);
             wind.Content = ltsv;
             wind.Show();
+        }
+
+        private void Remove_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var sel = Special_LB.SelectedItem as AreasJSON;
+            ObservableSource.Remove(sel);
+            source.Areas.Remove(sel);
+            source.Save();
         }
     }
 }

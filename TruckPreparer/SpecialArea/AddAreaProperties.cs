@@ -35,6 +35,32 @@ namespace TruckPreparer.SpecialArea
                 }
             }
         }
+        private DateTime startDateTime;
+        public DateTime StartDateTime
+        {
+            get { return this.startDateTime; }
+            set
+            {
+                if (this.startDateTime != value)
+                {
+                    this.startDateTime = value;
+                    this.NotifyPropertyChanged("StartDateTime");
+                }
+            }
+        }
+        private DateTime endDateTime;
+        public DateTime EndDateTime
+        {
+            get { return this.endDateTime; }
+            set
+            {
+                if (this.endDateTime != value)
+                {
+                    this.endDateTime = value;
+                    this.NotifyPropertyChanged("EndDateTime");
+                }
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propName)

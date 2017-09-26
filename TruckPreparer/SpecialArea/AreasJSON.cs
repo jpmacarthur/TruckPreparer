@@ -12,6 +12,8 @@ namespace TruckPreparer.SpecialArea
         public string Name { get; set; }
         public LTS Items { get; set; }
         public DateTime Until { get; set; }
+        public DateTime Start { get; set; }
+        public bool CheckedAlready { get; set; }
     }
     public class AreasList : PersistableJson
     {

@@ -7,8 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DockPanel>
-        <ListBox Name="LTS_LB" DockPanel.Dock="Top" MinHeight="280" SelectionMode="Extended">
+        <DockPanel LastChildFill="True">
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="+" Width="20" Height="20" Click="Button_Click"></Button>
+                <Button Content="-" Width="20" Height="20" Margin="20,0,0,0" Click="Button_Click_1"></Button>
+        </StackPanel>
+            <ListBox Name="LTS_LB" DockPanel.Dock="Top" MinHeight="280" SelectionMode="Extended">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -18,10 +23,6 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="+" Width="20" Height="20" Click="Button_Click"></Button>
-                <Button Content="-" Width="20" Height="20" Margin="20,0,0,0" Click="Button_Click_1"></Button>
-        </StackPanel>
         </DockPanel>
     </Grid>
 </UserControl>

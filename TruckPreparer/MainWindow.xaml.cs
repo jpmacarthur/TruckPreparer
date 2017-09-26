@@ -19,6 +19,7 @@ using LCP.Common.Logging;
 using LCP.Common.Json;
 using ExcelDataReader;
 using TruckPreparer.SpecialArea;
+using System.Diagnostics;
 
 namespace TruckPreparer
 {
@@ -43,36 +44,10 @@ namespace TruckPreparer
 
         public void ListToExcel(List<TruckItem> list, string savepath)
         {
-            /* Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-
-             Microsoft.Office.Interop.Excel.Workbook excelworkBook;
-             Microsoft.Office.Interop.Excel.Worksheet excelSheet;
-             // for making Excel visible
-             excel.Visible = false;
-             excel.DisplayAlerts = false;
-
-             // Creation a new Workbook
-             excelworkBook = excel.Workbooks.Add(Type.Missing);
-
-             // Workk sheet
-             excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelworkBook.ActiveSheet;
-             excelSheet.Name = "Sheet1";
-             int length = list.Count;
-             for (int b = 0; b < length; b++)
-                 {
-                 excelSheet.Cells[b.ToString(), "A"].Value2 = list[b].Name;
-                 excelSheet.Cells[b.ToString(), "F"] = list[b].itemcode;
-                 excelSheet.Cells[b.ToString(), "C"] = list[b].inStore.cases;
-                 excelSheet.Cells[b.ToString(), "D"] = list[b].inStore.units;
-                 excelSheet.Cells[b.ToString(), "E"] = list[b].inStore.unitsPerCase;
-                 excelSheet.Cells[b.ToString(), "B"] = list[b].size;
-             }
-
-             excelworkBook.SaveAs(savepath + "truckitems.xls");
-             excelworkBook.Close();
-             excel.Quit();*/
+            
             log.Debug("Into ListToExcel");
-
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             LTS source = PersistableJson.Load<LTS>();
             Microsoft.Office.Interop.Excel.Application oXL;
             Microsoft.Office.Interop.Excel._Workbook oWB;
@@ -100,7 +75,7 @@ namespace TruckPreparer
                 oSheet.Cells[1.ToString(), "I"] = "Notes";
                 oSheet.Cells[1.ToString(), "H"] = "Location";
 
-                for (int b = 0; b <= length; b++)
+                for (int b = 0; b < length; b++)
                 {
                     StringBuilder notes = new StringBuilder();
                     oSheet.Cells[(b + 2).ToString(), "A"] = list[b].Name;
@@ -131,10 +106,22 @@ namespace TruckPreparer
                         notes.Append("Possible Cut In, "); 
                     }
                     var query = source.Items.Select(o => o.Itemcode).ToList();
-                    foreach(AreasJSON area in al.Areas)
+                    foreach (AreasJSON area in al.Areas)
                     {
-                        
-                        
+                        var query3 = from a in area.Items.Items
+                                     where a.Itemcode == list[b].itemcode
+                                     select new
+                                     { iteminfo = a,
+                        location = area.Name }
+                                         ;
+                        if(query3.Count() != 0)
+                        {
+                            if(DateTime.Now < area.Start)
+                            {
+                                notes.Append("Stage ");
+                            }
+                            notes.Append(query3.First().location + ", ");
+                        }
                     }
                     if (query.Contains(list[b].itemcode))
                     {
@@ -162,6 +149,8 @@ namespace TruckPreparer
                 }
             }
             catch (Exception ex) { Console.WriteLine(ex); throw; };
+            stopwatch.Stop();
+            log.Debug("Elapsed time: " + stopwatch.ElapsedMilliseconds);
         }
         public void changeSheetNames(string store, string truck)
         {
@@ -315,6 +304,7 @@ namespace TruckPreparer
             SpecialViewer lts = new SpecialViewer();
             lts.Reload(PersistableJson.Load<AreasList>());
             win.Content = lts;
+            win.Title = "Special Areas";
             win.Show();
         }
     }

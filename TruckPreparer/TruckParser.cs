@@ -36,7 +36,7 @@ namespace TruckPreparer
             List<TruckItem> items = new List<TruckItem>();
 
             int num = data.Rows.Count;
-            for(int i = 1; i < num-1; i++)
+            for(int i = 1; i < num; i++)
             {
                 TruckItem item = new TruckItem();
                 Quantity quan = new Quantity();

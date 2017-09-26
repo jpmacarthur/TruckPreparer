@@ -28,15 +28,16 @@ namespace TruckPreparer.SpecialArea
         {
             InitializeComponent();
             DataContext = ap;
+            ap.StartDateTime = DateTime.Now;
+            ap.EndDateTime = DateTime.Now;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (this.AddItem != null)
             {
-                this.AddItem(this, new AddAreaEventArgs(ap.Name, ap.FileLocation));
+                this.AddItem(this, new AddAreaEventArgs(ap.Name, ap.FileLocation, ap.StartDateTime, ap.EndDateTime));
             }
-            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

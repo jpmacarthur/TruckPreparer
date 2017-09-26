@@ -10,15 +10,15 @@
         Icon="TruckLogo.ico">
     <Grid>
         <Image gif:ImageBehavior.AnimatedSource="TWM-LOAD.gif" Height="200" Panel.ZIndex="2" Visibility="Collapsed" Name="LoadGif" gif:ImageBehavior.AutoStart="True"></Image>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="-1,106,1,91.5">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="truck_xls_BT" Content="Truck Excel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,40,0" Click="truck_xls_BT_Click"></Button>
                 <Button x:Name="store_inv_BT" Content="Store Inventory" VerticalAlignment="Center" Click="store_inv_BT_Click"></Button>
             </StackPanel>
             <CheckBox Name="RecievedCheckBox" Content="Recieved?" Margin="0,10,0,0" HorizontalAlignment="Center" IsChecked="{Binding Checkboxstat}"></CheckBox>
             <Button x:Name="prep_truck_BT" Content="Prepare Truck" HorizontalAlignment="Center" Margin="0,20,0,0" Click="prep_truck_BT_Click"></Button>
-            <Button x:Name="save_loc_BT" Content="Save Location" HorizontalAlignment="Center" Margin="0,60,0,0" Click="save_loc_BT_Click" Visibility="Collapsed"></Button>
-            <Button Name="Highly_Rated" Width="100" Margin="0,20,0,0" HorizontalAlignment="Right" Click="Highly_Rated_Click"> Highly Rated</Button>
+            <Button x:Name="save_loc_BT" Content="Save Location" HorizontalAlignment="Center" Margin="0,60,0,0" Click="save_loc_BT_Click" Visibility="Visible"></Button>
+            <Button Name="Highly_Rated" Width="100" Margin="0,20,0,0" HorizontalAlignment="Right" Click="Highly_Rated_Click">Special Locations</Button>
 
         </StackPanel>
     </Grid>

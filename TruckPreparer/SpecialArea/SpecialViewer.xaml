@@ -7,10 +7,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="300">
     <Grid>
-        <StackPanel>
-        <Label FontFamily="Arial" FontSize="24" HorizontalAlignment="Center">Special Areas</Label>
         <DockPanel>
-        <ListBox Name="Special_LB" MinHeight="300" DockPanel.Dock="Top">
+            <Label FontFamily="Arial" FontSize="24" HorizontalAlignment="Center" DockPanel.Dock="Top">Special Areas</Label>
+        <DockPanel LastChildFill="True" VerticalAlignment="Stretch">
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                    <Button Name="Add_Button" Content="Add" Click="Add_Button_Click" Margin="0,0,10,0"></Button>
+                    <Button Name="Remove_Button" Content="Remove" Click="Remove_Button_Click" Margin="0,0,10,0"></Button>
+                    <Button Name="Edit_Button" Content="Edit" Click="Edit_Button_Click"></Button>
+                </StackPanel>
+        <ListBox Name="Special_LB" DockPanel.Dock="Top" VerticalAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -19,12 +24,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                <Button Name="Add_Button" Content="Add" Click="Add_Button_Click"></Button>
-                <Button Name="Remove_Button" Content="Remove"></Button>
-                <Button Name="Edit_Button" Content="Edit" Click="Edit_Button_Click"></Button>
-        </StackPanel>
+       
         </DockPanel>
-        </StackPanel>
+        </DockPanel>
     </Grid>
 </UserControl>
